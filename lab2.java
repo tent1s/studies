@@ -9,14 +9,18 @@ import java.text.SimpleDateFormat;
 import java.io.IOException;
 
 public class lab2 extends main{
-	
+	    public static final DateFormat dateform = new SimpleDateFormat("dd.MM.yyyy");
+        private static final String Date = null;	
+	    static public void lab2() throws ParseException, IOException 
+        {
+	         Scanner in = new Scanner(System.in);
+	         Formula(scan_date(null, null, in));
+	         Formula(scan_date(null, null, in));
+        }
+	    
+	    
 	    public static long getDayRange(Date d1, Date d2) throws ParseException, IOException 
 	    {
-		    while((d2.getTime()-d1.getTime())/(1000*60*60*24)<=0) 
-		    {
-			System.out.println("Вы ввели даты в неверном порядке или число N равно 0");
-			lab2();
-		    }
 		  return (d2.getTime()-d1.getTime())/(1000*60*60*24);
 		}
 	
@@ -29,22 +33,6 @@ public class lab2 extends main{
 	      return n;
 	   }
 	   
-       public static final DateFormat dateform = new SimpleDateFormat("dd.MM.yyyy");
-       private static final String Date = null;	
-       static public void lab2() throws ParseException, IOException 
-       {
-	       Scanner in = new Scanner(System.in);
-	       System.out.println("Введите первую дату");
-	       Date date1 = get_date(in);
-           System.out.println("Введите вторую дату");
-	       Date date2 = get_date(in);
-	       System.out.println("Число дней:"+getDayRange(date1,date2));
-	       int n=0;
-	       n=(int) (getDayRange(date1,date2));
-	       Formula(n);
-        }
-        
-
         private static boolean isValid(String date)
         {
             try {
@@ -71,6 +59,28 @@ public class lab2 extends main{
           return new Date();
              }
          }
+        
+        private static int scan_date(Date date1,Date date2, Scanner in) throws ParseException, IOException {
+        	good_dayrange:
+            for(;;) {
+               System.out.println("Введите первую дату");
+ 	           date1 = get_date(in);
+               System.out.println("Введите вторую дату");
+ 	           date2 = get_date(in);
+ 	           getDayRange(date1,date2);
+ 	             if(getDayRange(date1,date2)<=0) {
+ 	            	 System.out.println("Первая дата больше или равна второй!");
+ 	            	 }
+ 	             if(getDayRange(date1,date2)>0) {
+ 	    	     break good_dayrange;
+ 	       }
+        }  
+ 	       System.out.println("Число N:"+getDayRange(date1,date2));
+ 	       int n=0;
+ 	       n=(int) (getDayRange(date1,date2));
+ 	       return n;
+        }
+        
 }
 
 
